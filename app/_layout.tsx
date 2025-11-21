@@ -1,5 +1,5 @@
-import {Stack, useRouter, useSegments} from "expo-router";
-import {useEffect, useState} from "react";
+import { Stack, useRouter, useSegments } from "expo-router";
+import { useEffect, useState } from "react";
 
 function RouteGuard({children}: { children: React.ReactNode }) {
     const router = useRouter();
@@ -14,14 +14,14 @@ function RouteGuard({children}: { children: React.ReactNode }) {
     useEffect(() => {
         if (!isRouterReady) return;
 
-        const inAuthGroup = segments[0] === 'auth';
+        const inAuthGroup = segments[0] === 'register';
 
         if (!isAuth && !inAuthGroup) {
-            router.replace("/auth");
+            router.replace("/register");
         }
     }, [isAuth, segments, router, isRouterReady]);
 
-    if (!isAuth && segments.length > 0 && segments[0] !== 'auth') {
+    if (!isAuth && segments.length > 0 && segments[0] !== 'register') {
         return null;
     }
 
@@ -33,6 +33,7 @@ export default function RootLayout() {
         <RouteGuard>
             <Stack>
                 <Stack.Screen name="(tabs)" options={{headerShown: false}}/>
+                <Stack.Screen name="register" options={{headerShown: false}}/>
             </Stack>
         </RouteGuard>
     );
