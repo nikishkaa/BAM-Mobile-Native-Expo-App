@@ -11,7 +11,7 @@ export default function AuthScreen() {
 
             <WebView
                 style={styles.container}
-                source={{uri: 'http://192.168.1.108:8080/home-page'}}
+                source={{uri: 'http://192.168.1.107:8080/home-page'}}
                 overScrollMode="never"
                 bounces={false}
                 nestedScrollEnabled={false}
