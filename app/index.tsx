@@ -1,4 +1,4 @@
-import {View, StyleSheet, StatusBar} from "react-native";
+import {View, StyleSheet} from "react-native";
 import {WebView} from 'react-native-webview';
 import React, {useState} from "react";
 
@@ -7,8 +7,6 @@ export default function AuthScreen() {
 
     return (
         <View style={styles.root}>
-            <StatusBar hidden />
-
             <WebView
                 style={styles.container}
                 source={{uri: 'http://192.168.1.107:8080/home-page'}}
@@ -16,15 +14,7 @@ export default function AuthScreen() {
                 bounces={false}
                 nestedScrollEnabled={false}
                 showsVerticalScrollIndicator={false}
-
                 scrollEnabled={true}
-                // onNavigationStateChange={(navState) => {
-                //     const url = navState.url || "";
-                //
-                //     const isAuthScreen = /\/(login|register)(\?|$)/.test(url);
-                //
-                //     setScrollEnabled(!isAuthScreen);
-                // }}
             />
         </View>
     );
@@ -33,7 +23,7 @@ export default function AuthScreen() {
 const styles = StyleSheet.create({
     root: {
         flex: 1,
-        backgroundColor: '#0A0A0A',
+        backgroundColor: '#0A0A0A', // важно и для iOS
     },
     container: {
         flex: 1,

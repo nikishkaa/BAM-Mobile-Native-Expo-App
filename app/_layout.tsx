@@ -1,16 +1,33 @@
 import { Stack } from "expo-router";
-import { StatusBar } from "react-native";
+import { Platform } from "react-native";
+import {  useEffect } from "react";
+import * as NavigationBar from "expo-navigation-bar";
+import { StatusBar } from "expo-status-bar";
 
 export default function RootLayout() {
+    useEffect(() => {
+        // ANDROID: прячем нижнюю навигацию, как делали раньше
+        if (Platform.OS === "android") {
+            NavigationBar.setVisibilityAsync("hidden");
+            NavigationBar.setBehaviorAsync("inset-swipe");
+        }
+    }, []);
+
     return (
         <>
-            {/* Прячем статусбар, как ты делал в экране */}
-            <StatusBar hidden />
+            {/* iOS: статусбар виден, текст светлый поверх тёмного фона */}
+            {Platform.OS === "ios" && (
+                <StatusBar style="light" hidden={false} translucent />
+            )}
+
+            {/* ANDROID: полноэкранный режим */}
+            {Platform.OS === "android" && (
+                <StatusBar hidden />
+            )}
 
             <Stack
                 screenOptions={{
                     headerShown: false,
-                    // ВАЖНО: общий фон для всего контента (включая safe-area)
                     contentStyle: {
                         backgroundColor: "#0A0A0A",
                     },

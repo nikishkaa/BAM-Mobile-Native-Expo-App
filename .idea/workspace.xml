@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="012e9316-ea5f-4960-904c-c950c0aa2d94" name="Changes" comment="Basic UI Upd.">
-      <change afterPath="$PROJECT_DIR$/app/index.tsx" afterDir="false" />
+    <list default="true" id="012e9316-ea5f-4960-904c-c950c0aa2d94" name="Changes" comment="Upd Structure.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/_layout.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/(tabs)/login.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/register.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +95,7 @@
       <workItem from="1763667893724" duration="4398000" />
       <workItem from="1763711556319" duration="53370000" />
       <workItem from="1764185115877" duration="5000" />
-      <workItem from="1764185161810" duration="12435000" />
+      <workItem from="1764185161810" duration="16835000" />
     </task>
     <task id="LOCAL-00001" summary="Init commit.">
       <option name="closed" value="true" />
@@ -139,7 +137,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764157054555</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Upd Structure.">
+      <option name="closed" value="true" />
+      <created>1764345142294</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1764345142295</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,6 +154,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init commit." />
     <MESSAGE value="Basic UI Upd." />
-    <option name="LAST_COMMIT_MESSAGE" value="Basic UI Upd." />
+    <MESSAGE value="Upd Structure." />
+    <option name="LAST_COMMIT_MESSAGE" value="Upd Structure." />
   </component>
 </project>
