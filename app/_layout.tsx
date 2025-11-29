@@ -1,47 +1,15 @@
+// app/_layout.tsx
 import React from "react";
-import {
-    View,
-    StyleSheet,
-    StatusBar,
-    KeyboardAvoidingView,
-    Platform,
-} from "react-native";
-import { WebView } from "react-native-webview";
+import { Stack } from "expo-router";
 
-export default function AuthScreen() {
+export default function RootLayout() {
     return (
-        <View style={styles.root}>
-            <StatusBar hidden />
-
-            <KeyboardAvoidingView
-                style={styles.flex}
-                behavior={Platform.OS === "ios" ? "padding" : "height"}
-                keyboardVerticalOffset={0} // если появится кастомный header — подстроишь
-            >
-                <WebView
-                    style={styles.container}
-                    source={{ uri: "http://192.168.1.107:8080/home-page" }}
-                    overScrollMode="never"
-                    bounces={false}
-                    nestedScrollEnabled={true}
-                    showsVerticalScrollIndicator={false}
-                    scrollEnabled={true}
-                />
-            </KeyboardAvoidingView>
-        </View>
+        <Stack
+            screenOptions={{
+                headerShown: false,
+                animation: "fade",
+                gestureEnabled: false,
+            }}
+        />
     );
 }
-
-const styles = StyleSheet.create({
-    root: {
-        flex: 1,
-        backgroundColor: "#0A0A0A",
-    },
-    flex: {
-        flex: 1,
-    },
-    container: {
-        flex: 1,
-        backgroundColor: "transparent",
-    },
-});
