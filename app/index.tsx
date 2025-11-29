@@ -33,6 +33,8 @@ export default function AuthScreen() {
                 nestedScrollEnabled={false}
                 showsVerticalScrollIndicator={false}
                 scrollEnabled={true}
+
+                allowsLinkPreview={false}
                 onNavigationStateChange={(navState) => setCanGoBack(navState.canGoBack)}
                 // iOS: свайп вперёд/назад как в Safari
                 allowsBackForwardNavigationGestures={Platform.OS === "ios"}
