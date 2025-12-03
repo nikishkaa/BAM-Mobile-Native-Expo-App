@@ -78,7 +78,7 @@ export default function IndexScreen() {
         <WebView
           ref={webViewRef}
           style={styles.webview}
-          source={{ uri: "http://bamcity.by" }}
+          source={{ uri: "http://192.168.1.107:8080/home-page" }}
           overScrollMode="never"
           bounces={false}
           nestedScrollEnabled={false}
