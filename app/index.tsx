@@ -100,7 +100,7 @@ const getStyles = (insets: EdgeInsets) =>
     root: {
       flex: 1,
       backgroundColor: "#0A0A0A",
-      paddingTop: insets.top,
+      // paddingTop: insets.top,
       paddingBottom: insets.bottom,
     },
     webviewContainer: {
