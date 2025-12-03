@@ -1,112 +1,113 @@
 // app/index.tsx
-import React, { useRef, useState, useEffect } from "react";
-import {
-    View,
-    StyleSheet,
-    Platform,
-    BackHandler,
-    StatusBar,
-    Keyboard,          // ← добавили
-} from "react-native";
-import { WebView } from "react-native-webview";
 import * as NavigationBar from "expo-navigation-bar";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  BackHandler,
+  Keyboard,
+  Platform,
+  StatusBar,
+  StyleSheet,
+  View,
+} from "react-native";
+import { EdgeInsets, useSafeAreaInsets } from "react-native-safe-area-context";
+import { WebView } from "react-native-webview";
 
 export default function IndexScreen() {
-    const webViewRef = useRef<WebView>(null);
-    const [canGoBack, setCanGoBack] = useState(false);
-    const [keyboardHeight, setKeyboardHeight] = useState(0); // ← высота клавиатуры (Android)
+  const webViewRef = useRef<WebView>(null);
+  const [canGoBack, setCanGoBack] = useState(false);
+  const [keyboardHeight, setKeyboardHeight] = useState(0); // ← высота клавиатуры (Android)
 
-    // ANDROID: скрыть нижние системные кнопки
-    useEffect(() => {
-        if (Platform.OS !== "android") return;
+  const insets = useSafeAreaInsets();
+  const styles = getStyles(insets);
 
-        NavigationBar.setVisibilityAsync("hidden");
-        NavigationBar.setBehaviorAsync("overlay-swipe");
-    }, []);
+  // ANDROID: скрыть нижние системные кнопки
+  useEffect(() => {
+    if (Platform.OS !== "android") return;
 
-    // ANDROID: аппаратная кнопка "назад" -> история WebView
-    useEffect(() => {
-        if (Platform.OS !== "android") return;
+    NavigationBar.setVisibilityAsync("hidden");
+    NavigationBar.setBehaviorAsync("overlay-swipe");
+  }, []);
 
-        const sub = BackHandler.addEventListener(
-            "hardwareBackPress",
-            () => {
-                if (canGoBack && webViewRef.current) {
-                    webViewRef.current.goBack();
-                    return true;
-                }
-                return false;
-            }
-        );
+  // ANDROID: аппаратная кнопка "назад" -> история WebView
+  useEffect(() => {
+    if (Platform.OS !== "android") return;
 
-        return () => sub.remove();
-    }, [canGoBack]);
+    const sub = BackHandler.addEventListener("hardwareBackPress", () => {
+      if (canGoBack && webViewRef.current) {
+        webViewRef.current.goBack();
+        return true;
+      }
+      return false;
+    });
 
-    // ANDROID: вручную «резайзим» область под WebView по высоте клавиатуры
-    useEffect(() => {
-        if (Platform.OS !== "android") return;
+    return () => sub.remove();
+  }, [canGoBack]);
 
-        const showSub = Keyboard.addListener("keyboardDidShow", (e) => {
-            const h = e.endCoordinates?.height ?? 0;
-            setKeyboardHeight(h);
-        });
+  // ANDROID: вручную «резайзим» область под WebView по высоте клавиатуры
+  useEffect(() => {
+    if (Platform.OS !== "android") return;
 
-        const hideSub = Keyboard.addListener("keyboardDidHide", () => {
-            setKeyboardHeight(0);
-        });
+    const showSub = Keyboard.addListener("keyboardDidShow", (e) => {
+      const h = e.endCoordinates?.height ?? 0;
+      setKeyboardHeight(h);
+    });
 
-        return () => {
-            showSub.remove();
-            hideSub.remove();
-        };
-    }, []);
+    const hideSub = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardHeight(0);
+    });
 
-    return (
-        <View style={styles.root}>
-            {/* iOS: статус-бар виден; Android: скрыт (как было) */}
-            <StatusBar
-                barStyle="light-content"
-                hidden={Platform.OS === "android"}
-            />
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
 
-            <View
-                style={[
-                    styles.webviewContainer,
-                    Platform.OS === "android" && keyboardHeight > 0
-                        ? { paddingBottom: keyboardHeight }
-                        : null,
-                ]}
-            >
-                <WebView
-                    ref={webViewRef}
-                    style={styles.webview}
-                    source={{ uri: "http://192.168.1.107:8080/home-page" }}
-                    overScrollMode="never"
-                    bounces={false}
-                    nestedScrollEnabled={false}
-                    showsVerticalScrollIndicator={false}
-                    scrollEnabled={true}
-                    allowsLinkPreview={false}
-                    onNavigationStateChange={(navState) =>
-                        setCanGoBack(navState.canGoBack)
-                    }
-                    allowsBackForwardNavigationGestures={Platform.OS === "ios"}
-                />
-            </View>
-        </View>
-    );
+  return (
+    <View style={styles.root}>
+      {/* iOS: статус-бар виден; Android: скрыт (как было) */}
+      <StatusBar barStyle="light-content" hidden={Platform.OS === "android"} />
+
+      <View
+        style={[
+          styles.webviewContainer,
+          Platform.OS === "android" && keyboardHeight > 0
+            ? { paddingBottom: keyboardHeight }
+            : null,
+        ]}
+      >
+        <WebView
+          ref={webViewRef}
+          style={styles.webview}
+          source={{ uri: "http://bamcity.by" }}
+          overScrollMode="never"
+          bounces={false}
+          nestedScrollEnabled={false}
+          showsVerticalScrollIndicator={false}
+          scrollEnabled={true}
+          allowsLinkPreview={false}
+          onNavigationStateChange={(navState) =>
+            setCanGoBack(navState.canGoBack)
+          }
+          allowsBackForwardNavigationGestures={Platform.OS === "ios"}
+        />
+      </View>
+    </View>
+  );
 }
 
-const styles = StyleSheet.create({
+const getStyles = (insets: EdgeInsets) =>
+  StyleSheet.create({
     root: {
-        flex: 1,
-        backgroundColor: "#0A0A0A",
+      flex: 1,
+      backgroundColor: "#0A0A0A",
+      paddingTop: insets.top,
+      paddingBottom: insets.bottom,
     },
     webviewContainer: {
-        flex: 1,               // контейнер под WebView
+      flex: 1, // контейнер под WebView
     },
     webview: {
-        flex: 1,
-        backgroundColor: "transparent",
+      flex: 1,
+      backgroundColor: "transparent",
     },
-});
+  });
